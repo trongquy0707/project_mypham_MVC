@@ -1,0 +1,57 @@
+﻿@model WEB_Hieu_Quy.Models.TAI_KHOAN
+
+@{
+    ViewBag.Title = "ThongTinDangNhap";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+}
+<link href="~/assets/CauHieu/css/change_password.css" rel="stylesheet" />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaUser)
+    <main>
+        <div class="containerr">
+            <div class="containerr-left">
+                <b>Xin chào, <div style="color: #e83e8c;display: inline-block;">Dinh Hieu !</div></b>
+                <h2>TRANG TÀI KHOẢN</h2>
+                <ul class="menu-left">
+                    <li><a href="~/Accountt/ThongTinTK/@Model.MaUser">Thông tin tài khoản</a></li>
+                    <li><a href="/html/orders.html">Sản phầm đã mua</a></li>
+                    <li><a href="/Accountt/ThongTinDangNhap/@Model.MaUser">Thông tin đăng nhập</a></li>
+                    <li><a href="#">Địa chỉ</a></li>
+                    <li><a href="/Accountt/logout">Đăng xuất</a></li>
+                </ul>
+            </div>
+
+            <div class="containerr-right">
+                <h1>THÔNG TIN ĐĂNG NHẬP </h1>
+                <p>Để đảm bảo tính bảo mật bạn vui lòng đặt lại mật khẩu với ít nhất 8 ký tự</p>
+                <form action="">
+                    <li>
+                        <span for="">Mật khẩu cũ*</span>
+                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                        @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                        <span><i class="fa-regular fa-eye"></i></span>
+                    </li>
+                    <li>
+                        <span for="">Mật khẩu mới*</span>
+                        <input type="password" id="" name="matkhaumoi">
+                        <span><i class="fa-regular fa-eye"></i></span>
+                    </li><li>
+                        <span for="">Xác nhận mật khẩu*</span>
+                        <input type="password" id="" name="return_mk">
+                        <span><i class="fa-regular fa-eye"></i></span>
+                    </li>
+                </form>
+                <div class="btn_oder">
+                    <button class="button" type="submit" name="">Thay đổi thông tin</button>
+                </div>
+            </div>
+        </div>
+    </main>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

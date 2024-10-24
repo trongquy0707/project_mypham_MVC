@@ -1,0 +1,200 @@
+﻿@model List<WEB_Hieu_Quy.Models.ShoppingCartItem>
+@using WEB_Hieu_Quy.Common
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+    decimal tongtien = 0;
+
+}
+
+
+<head>
+    <style>
+
+
+        table {
+            width: 100%;
+            padding-left: 150px;
+            padding-right: 150px;
+            border-collapse: initial;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .checkout-button {
+            background-color: hotpink;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            float: right;
+            margin-top: 20px;
+            cursor: pointer;
+            margin-right: 150px;
+            /*  margin-b:150px;*/
+        }
+
+        .total_price {
+            /* margin-bottom:20px;*/
+            font-size: 20px;
+            float: right;
+           /* top:10px;
+            left: 20px;*/
+            color: red;
+            margin-right:200px
+            
+        }
+
+        .checkout-button:hover {
+            background-color: #d8346b;
+        }
+
+        .buy .button {
+            display: grid;
+            grid-template-columns: 40px 70px 40px;
+            border-radius: 10px;
+            border: 1px solid #e7e7e7;
+            margin: 5px 20px 5px 0;
+        }
+
+        .button .prev, .next {
+            border: none;
+            border-radius: 5px;
+            padding: 0.5rem;
+        }
+
+            .button .prev:hover, .next:hover {
+                background: #d8346b;
+                cursor: pointer;
+                transition: all 0.2s ease-in-out;
+            }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>Số thứ tự</th>
+                <th>Ánh Sản Phẩm</th>
+                <th>Tên sản phẩm</th>
+                <th>Đơn giá</th>
+                <th>Số lượng</th>
+                <th>Tổng tiền</th>
+                <th>Xóa</th>
+            </tr>
+        </thead>
+
+        @if (Model != null && Model.Any())
+        {
+
+            var i = 1;
+            foreach (var item in Model)
+            {
+                tongtien = tongtien + item.TongGia;
+                <tbody>
+                    <tr>
+
+                        <td>@i</td>
+                        <td><img src="@Url.Content(item.AnhSanPham)" class="imgproduct" width="80" height="80" /></td>
+                        <td>@item.TenSanPham</td>
+                        <td>@Common.FormatNumber(item.GiaSanPham, 2) VNĐ</td>
+                        <td>
+                            <div class="button">
+                                <button class="prev" data-id="@item.IdSanPham">-</button>
+                                <label id="quantity_@item.IdSanPham" style="text-align:center; padding-top: 5px">@item.SoLuong</label>
+                                <button class="next" data-id="@item.IdSanPham">+</button>
+                            </div>
+
+                        </td>
+                        <td> @Common.FormatNumber(item.TongGia, 2)</td>
+                        <td><a href="#" data-id="@item.IdSanPham" class="btnDelete" style="color:red">Xóa</a></td>
+
+                    </tr>
+
+                </tbody>
+                i++;
+
+            }
+            @*<span class="total_price">Tổng tiền: @Common.FormatNumber(tongtien, 2) Đ </span>*@
+        }
+        else
+        {
+            <tr>
+                <th>Không có sản phẩm trong giỏ hàng !!</th>
+            </tr>
+
+        }
+    </table>
+    <span class="total_price">Tổng tiền: @Common.FormatNumber(tongtien, 2) Đ </span>
+    <div>
+        <button class="checkout-button" onclick="checkout()"> <a href="/ShoppingCart/CheckOut">Thanh toán</a></button>
+    </div>
+  
+
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy tất cả các nút có class 'prev' và 'next'
+            var prevButtons = document.querySelectorAll('.prev');
+            var nextButtons = document.querySelectorAll('.next');
+
+            // Lặp qua từng nút và thêm sự kiện click
+            prevButtons.forEach(function (prevButton) {
+                prevButton.addEventListener('click', function () {
+                    // Lấy nhãn số lượng tương ứng với nút này
+                    var quantityLabel = document.getElementById('quantity_' + prevButton.dataset.id);
+                    // Lấy số lượng hiện tại
+                    var currentQuantity = parseInt(quantityLabel.innerText);
+                    // Giảm số lượng nếu nó lớn hơn 0
+                    if (currentQuantity > 1) {
+                        quantityLabel.innerText = currentQuantity - 1;
+                    }
+                });
+            });
+
+            // Tương tự cho nút next
+            nextButtons.forEach(function (nextButton) {
+                nextButton.addEventListener('click', function () {
+                    var quantityLabel = document.getElementById('quantity_' + nextButton.dataset.id);
+                    // Tăng số lượng
+                    var currentQuantity = parseInt(quantityLabel.innerText);
+                    quantityLabel.innerText = currentQuantity + 1;
+                });
+            });
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có muốn xóa bản ghi này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/ShoppingCart/Detele',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.Success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+
+</body>
+
+

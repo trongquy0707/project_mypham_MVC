@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3b51c42fb85a49b8a06776293fec4c8e" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="Web_CosmeticsModel.BINH_LUAN" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.CHUC_VU" Width="1.5" PointX="8.75" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.DANH_MUC_SAN_PHAM" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.HINH_ANH" Width="1.5" PointX="5.25" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.HOA_DON" Width="1.5" PointX="6" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.HOA_DON_CHI_TIET" Width="1.5" PointX="8.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.SAN_PHAM_CHI_TIET" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.TAI_KHOAN" Width="1.5" PointX="11" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Web_CosmeticsModel.VOUCHER" Width="1.5" PointX="3.75" PointY="11.375" IsExpanded="true" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_BINH_LUAN_SAN_PHAM_CHI_TIET" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_TAI_KHOAN_CHUC_VU" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_HINH_ANH_SAN_PHAM_CHI_TIET" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_HOA_DON_CHI_TIET_HOA_DON" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_HOA_DON_VOUCHER" ManuallyRouted="false" />
+        <AssociationConnector Association="Web_CosmeticsModel.FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

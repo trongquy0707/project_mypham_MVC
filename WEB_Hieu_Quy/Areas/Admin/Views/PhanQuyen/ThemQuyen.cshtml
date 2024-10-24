@@ -1,0 +1,37 @@
+﻿@model WEB_Hieu_Quy.Models.CHUC_VU
+
+@{
+    ViewBag.Title = "ThemQuyen";
+    Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+
+@*<h2>ThemQuyen</h2>*@
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Tạo quyền đăng nhập</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @*@Html.LabelFor(model => model.TenChucVu, htmlAttributes: new { @class = "control-label col-md-2" })*@
+            Tên Quyền
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenChucVu, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenChucVu, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

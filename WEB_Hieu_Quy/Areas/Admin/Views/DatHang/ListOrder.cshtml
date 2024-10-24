@@ -1,0 +1,40 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.HOA_DON_CHI_TIET>
+@{
+    ViewBag.Title = "ListOrder";
+    //Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+
+@if (Model != null && Model.Any())
+{
+    int i = 1;
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Tên sản phẩm</th>
+                <th>Giá</th>
+                <th>Số lượng</th>
+                <th>Thành tiền</th>
+              
+            </tr>
+
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var TongTien = item.GiaBan * item.SoLuongMua;
+                <tr>
+                    <td>@i</td>
+                    <td>@item.SAN_PHAM_CHI_TIET.TenSanPham</td>
+                    <td>@item.GiaBan</td>
+                    <td>@item.SoLuongMua</td>
+                    <td>@WEB_Hieu_Quy.Common.Common.FormatNumber((item.GiaBan * item.SoLuongMua), 0)</td>
+                </tr>
+        
+                i++;
+            }
+        </tbody>
+    </table>
+}
+
+

@@ -1,0 +1,155 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.SAN_PHAM_CHI_TIET>
+@using WEB_Hieu_Quy.Common
+<link href="~/assets/CauHieu/css/product.css" rel="stylesheet" />
+<main>
+    <div class="banner">
+        <a href="#"><img src="~/assets/CauHieu/images/banner1.jpg" alt=""></a>
+        <a href="#"><img src="~/assets/CauHieu/images/banner2.jpg" alt=""></a>
+        <a href="#"><img src="~/assets/CauHieu/images/banner3.jpg" alt=""></a>
+
+    </div>
+    <div class="container">
+        <div class="menu">
+            <div class="menu-1">
+                <h3 class="menu_title">DANH MỤC SẢN PHẨM</h3>
+                <ul>
+                    <li>
+                        <a href="#">Chăm sóc da</a>
+                    </li>
+                    <li>
+                        <a href="#">Chăm sóc cơ thể</a>
+                    </li>
+                    <li>
+                        <a href="#">Chăm sóc tóc</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-2">
+                <h3 class="menu_title"><a href="">LOẠI SẢN PHẨM</a></h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Kem dưỡng da</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Serum</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Sữa rửa mặt</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Tẩy trang</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Toner</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Treatment</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-2">
+                <h3 class="menu_title"><a href="">CHỌN MỨC GIÁ</a></h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Dưới 100.000đ</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Từ 100.000đ - 300.000đ</a>
+                    </li>
+                    <li>
+                        <input type="hidden" value="300000" id="minPrice">
+                        <input type="hidden" value="500000" id="maxPrice">
+                        <a href="#" onclick="filterByPrice()" >Từ 300.000đ - 500.000đ</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Từ 500.000đ - 700.000đ</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Trên 700.000đ</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="menu-2">
+                <h3 class="menu_title"><a href="">LOẠI DA</a></h3>
+                <ul>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Da dầu</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Da khô</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Da nhạy cảm</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Da thường</a>
+                    </li>
+                    <li>
+                        <input type="checkbox" name="" id="">
+                        <a href="#">Da hỗn hợp</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="products">
+            <div class="daily-hot-deals-content-gird">
+                <ul class="daily-hot-deals-content-row">
+                    @if (Model.Any())
+                    {
+                        var i = 1;
+
+                        foreach (var item in Model)
+                        {
+
+                            <li class="daily-hot-deals-content-item" data-name="a-5">
+                                <img src="@Url.Content(item.HinhAnhChinh)" alt="">
+                                <div class="background"></div>
+                                <div class="content">
+                                    <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                    <a href="#" data-id="@item.MaSP"  class="cart" >Mua ngay</a>
+                                </div>
+                                <div class="product_detail">
+                                    <a href="#"><i class="fa-regular fa-heart"></i></a>
+                                    <a href="~/ListSanPham/ChiTietSanPham/@item.MaSP">@item.TenSanPham</a>
+                                    <div class="price">
+                                        <p class="cost">@Common.FormatNumber(item.GiaBan) đ</p>
+                                        <p class="sale">@Common.FormatNumber(item.GiaGoc) đ</p>
+                                        <p class="discount">@item.PhanTramSale %</p>
+                                    </div>
+                                    <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                                </div>
+                            </li>
+                            i++;
+                        }
+                    }
+                    else
+                    {
+                        <h5>Sản phẩm đang được cập nhật</h5>
+                    }
+
+                </ul>
+                <ul class="listPage">
+                </ul>
+                <script src="~/assets/CauHieu/js/phantrang.js"></script>
+                <script src="~/assets/CauHieu/js/card.js"></script>
+
+          
+                <script src="~/assets/CauHieu/js/buy.js"></script>
+            </div>
+        </div>
+    </div>
+</main>

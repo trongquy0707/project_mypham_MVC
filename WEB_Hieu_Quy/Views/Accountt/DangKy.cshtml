@@ -1,0 +1,56 @@
+﻿@model WEB_Hieu_Quy.Models.AccountViewModel
+
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+}
+
+<link href="~/assets/CauHieu/css/register.css" rel="stylesheet" />
+@using (Html.BeginForm("DangKy", "Accountt", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <main>
+        <div class="container">
+            <h1>ĐĂNG KÝ</h1>
+            @*<p>Đã có tài khoản, đăng nhập <a href="/html/login.html" style="color: #e83e8c;">tại đây</a></p>*@
+         
+        <div style="color: red">
+            @TempData["loi"]
+            @TempData["checkTrug"]
+        </div>
+            <input type="text" name="TenDangNhap" placeholder="Tên Đăng Nhập">
+            <input type="email" name="Email" id="" placeholder="Email"><br>
+            <input type="text" name="So_dien_Thoai" id="" placeholder="Số điện thoại">
+
+            <input type="password" name="MatKhau" id="MatKhau" placeholder="Mật khẩu"><br>
+
+            <button type="button" onclick="togglePassword()">Hiển thị/Ẩn mật khẩu</button>
+
+            <input type="password" name="Retunr_MatKhau" id="Retunr_MatKhau" placeholder="Nhập Lại Mật khẩu">
+
+            <button type="button" onclick="togglePassword_return()">Hiển thị/Ẩn mật khẩu</button>
+
+
+            <button type="submit">Đăng Ký</button>
+        </div>
+    </main>
+}
+
+<script>
+    function togglePassword() {
+        var x = document.getElementById("MatKhau");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    function togglePassword_return() {
+        var x = document.getElementById("Retunr_MatKhau");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>

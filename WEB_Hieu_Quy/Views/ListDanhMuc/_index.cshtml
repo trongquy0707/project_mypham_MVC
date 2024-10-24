@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.DANH_MUC_SAN_PHAM>
+
+@*@{
+            ViewBag.Title = "Index";
+           // Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+    }*@
+
+@foreach (var item in Model)
+{
+    <li>
+        <a href="/ListSanPham/SanPhamTheoDanhMuc/@item.MaDanhMuc">
+            @if (!string.IsNullOrEmpty(item.AnhDanhMuc))
+            {
+                <img src="@Url.Content(item.AnhDanhMuc)" width="115" ; height="115" , style="margin-left: 10px" alt="">
+            }
+            else
+            {
+                <span>Không có hình ảnh</span>
+            }
+            <p>@Html.DisplayFor(modelItem => item.TenDangMuc)</p>
+        </a>
+    </li>
+}

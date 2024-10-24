@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "QuenMK";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+}
+<link href="~/assets/CauHieu/css/login.css" rel="stylesheet" />
+@using (Html.BeginForm("QuenMK", "Accountt"))
+{
+    <main>
+        <div class="container">
+            <h1>Nhập Email đã đăng ký <br /> tài khoản</h1>
+            <form action="">
+                <input type="email" name="emaill" id="" placeholder="Email"><br>
+                <button>Cấp lại tài khoản</button>
+            </form>
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <p class="error-message">@ViewBag.ErrorMessage</p>
+            }
+        </div>
+    </main>
+}
+
+

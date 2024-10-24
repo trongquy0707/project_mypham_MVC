@@ -1,0 +1,225 @@
+﻿@model WEB_Hieu_Quy.Models.OrderViewModel
+
+<link rel="stylesheet" href="~/assets/CauHieu/css/checkout.css" />
+@if (ViewBag.CheckCart != null)
+{
+
+    <div class="containers">
+        @using (Ajax.BeginForm("CheckOut", "ShoppingCart", new AjaxOptions
+        {
+            HttpMethod = "POST",
+            UpdateTargetId = "load_data",
+            OnComplete = "OnSuccessCO",
+            OnFailure = "OnFailure",
+            OnBegin = "OnBeginCO"
+        }))
+
+
+        {
+
+            <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+            <script>
+                function OnSuccessCO(res) {
+                    if (res.Success) {
+                        if (res.Code == 1) {
+                            location.href = "/ShoppingCart/CheckOutSucces";
+                        }
+                        else {
+                            location.href = res.Url;
+                        }
+                    }
+                }
+
+            </script>
+
+            @Html.AntiForgeryToken()
+            <div class="left">
+                <img src="~/assets/CauHieu/images/logo.jpg" alt="">
+                <div style="display: flex">
+                    <div class="information">
+
+                        <h3>Thông tin nhận hàng</h3>
+                        <div class="col-md-9">
+                            <label for="" class="form-label">Email</label>
+                            <input type="email" name="Email" required class="form-control" autocomplete="off" />
+                        </div>
+                        <div class="col-md-12">
+                            <label for="" class="form-label">Họ và tên</label>
+                            <input type="text" name="TenKhachHang" required class="form-control" autocomplete="off" />
+
+
+                        </div>
+                        <div class="col-md-12">
+                            <label for="" class="form-label">Số điện thoại</label>
+                            <input type="text" name="SoDienThoai" required class="form-control" autocomplete="off" />
+
+                        </div>
+                        <div>
+                            <select name="ThanhPho" class="form-select form-select-sm mb-3" id="city" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn tỉnh thành</option>
+                            </select>
+
+                            <select name="Quan_Huyen" class="form-select form-select-sm mb-3" id="district" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn quận huyện</option>
+                            </select>
+
+                            <select name="Xa_Phuong" class="form-select form-select-sm" id="ward" aria-label=".form-select-sm">
+                                <option value="" selected>Chọn phường xã</option>
+                            </select>
+                        </div>
+
+                        <textarea name="Ghi_Chu" cols="44" rows="5" placeholder="Khách hàng nhập địa chỉ bằng tiếng anh tại đây (tuỳ chọn)"></textarea>
+                        <div class="form-group" style="display: flex; justify-content: space-between; align-items: center;margin: 10px 5px;">
+                            <a href="/html/cart.html" style="color: rgb(88, 143, 247);">Quay về giỏ hàng</a>
+                            <button class="Test" @*class="btn-order"*@>ĐẶT HÀNG</button>
+                        </div>
+                    </div>
+                    <div style="margin-left: 10px;">
+                        <h3>Thanh toán</h3>
+                    <div class="pay">
+                            <div>
+                                <input type="radio" name="Thanh_Toan" value="1" id="">
+                                <label for="">Thu hộ (COD)</label>
+                            </div>
+                            <i class="fa-regular fa-money-bill-1"></i>
+                        </div>
+                    <div class="pay">
+                            <div>
+                                <input type="radio" name="Thanh_Toan" value="0" id="">
+                                <label for="">Ví điện tử VNPAY / VNPAY QR</label>
+                            </div>
+                            <i class="fa-regular fa-money-bill-1"></i>
+                        </div>
+                   
+
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="right">
+            <h1>Đơn hàng</h1>
+            @Html.Action("partial_thanhtoan", "ShoppingCart")
+        </div>
+        <div id="ThanhCong">
+
+        </div>
+
+    </div>
+
+}
+else
+{
+    <div style="text-align: center; font-size: 20px; color:red; padding:20px">
+        Bạn chưa có sản phẩm nào. Vui lòng quay lại trang <a href="~/home/index">sản phẩm</a> để mua hàng.
+    </div>
+}
+
+
+<script>
+    function thatbai(rs) {
+        if (!rs.Success) {
+            $('#ThanhCong').html("Bạn mua hàng thất bại! Xin vui lòng thử lại");
+        }
+    }
+
+    //function thanhcong(res) {
+    //    if (res.Success) {
+    //        if (res.code == 1) {
+    //            location.href = "/ShoppingCart/CheckOutSucces";
+    //        } else {
+    //            location.href = res.url;
+    //        }
+    //    }
+    //}
+
+    $(document).ready(function () {
+        $('body').on('change', '#drTypePayment', function () {
+            var type = $(this).val();
+            $('#load_form_payment').hide();
+            if (type == "2") {
+                $('#load_form_payment').show();
+            }
+        })
+
+    });
+
+    /*}*/
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(function () {
+        $('form').submit(function (event) {
+            event.preventDefault(); // Ngăn chặn form submit mặc định
+
+            $.ajax({
+                url: $(this).attr('action'), // Lấy URL action từ form
+                type: $(this).attr('method'), // Lấy HTTP method từ form
+                data: $(this).serialize(), // Serialize dữ liệu từ form
+                success: function (response) {
+                    // Xử lý response JSON trả về từ controller
+                    if (response.success) {
+                        if (response.quy == 1) {
+                            // Nếu quy bằng 1, chuyển hướng đến trang CheckOutSuccess
+                            window.location.href = '/ShoppingCart/CheckOutSucces';
+                        } else {
+                            // Nếu có URL trong response, chuyển hướng đến URL đó
+                            window.location.href = response.Url;
+                        }
+                    } else {
+                        // Xử lý trường hợp lỗi nếu cần
+                    }
+                },
+                error: function (xhr, status, error) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        });
+    });
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script>
+    var citis = document.getElementById("city");
+    var districts = document.getElementById("district");
+    var wards = document.getElementById("ward");
+    var Parameter = {
+        url: "https://raw.githubusercontent.com/kenzouno1/DiaGioiHanhChinhVN/master/data.json",
+        method: "GET",
+        responseType: "application/json",
+    };
+    var promise = axios(Parameter);
+    promise.then(function (result) {
+        renderCity(result.data);
+    });
+
+    function renderCity(data) {
+        for (const x of data) {
+            citis.options[citis.options.length] = new Option(x.Name, x.Name);
+        }
+        citis.onchange = function () {
+            districts.length = 1;
+            wards.length = 1;
+            if (this.value != "") {
+                const result = data.filter(n => n.Name === this.value);
+
+                for (const k of result[0].Districts) {
+                    districts.options[districts.options.length] = new Option(k.Name, k.Name);
+                }
+            }
+        };
+        districts.onchange = function () {
+            wards.length = 1;
+            const dataCity = data.filter((n) => n.Name === citis.value);
+            if (this.value != "") {
+                const dataWards = dataCity[0].Districts.filter(n => n.Name === this.value)[0].Wards;
+
+                for (const w of dataWards) {
+                    wards.options[wards.options.length] = new Option(w.Name, w.Name);
+                }
+            }
+        };
+    }
+</script>

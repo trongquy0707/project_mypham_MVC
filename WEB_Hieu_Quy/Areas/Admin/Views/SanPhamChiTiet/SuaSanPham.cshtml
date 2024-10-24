@@ -1,0 +1,119 @@
+﻿@model WEB_Hieu_Quy.Models.SAN_PHAM_CHI_TIET
+
+@{
+    ViewBag.Title = "SuaSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+
+<h2>Sửa sản phẩm</h2>
+</style>
+
+@using (Html.BeginForm("SuaSanPham", "SanPhamChiTiet", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>SAN_PHAM_CHI_TIET</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.MaSP)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MaDanhMuc, null, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("MaDanhMuc", ViewBag.MaDanhMuc as SelectList, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.MaDanhMuc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.HinhAnhChinh, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.HinhAnhChinh, new { htmlAttributes = new { @class = "form-control" } })
+                <label> Thêm hình ảnh chính</label>
+                @Html.ValidationMessageFor(model => model.HinhAnhChinh, "", new { @class = "text-danger" })
+                <input type="file" name="imageFile" id="imageFile" class="form-control" />
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.TenSanPham, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TenSanPham, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenSanPham, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.GiaGoc, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GiaGoc, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GiaGoc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group">
+            @Html.LabelFor(model => model.GiaSale, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.GiaSale, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.GiaSale, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <div class="form-group">
+        @Html.LabelFor(model => model.PhanTramSale, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.PhanTramSale, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.PhanTramSale, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MoTaChiTiet, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.MoTaChiTiet, new { @class = "form-control", @id = "txtMoTaChiTiet" })
+            @Html.ValidationMessageFor(model => model.MoTaChiTiet, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(model => model.IsHome, new { @class = "custom-control-input", @id = "IsHomeCheckbox" })
+                    <label for="IsHomeCheckbox" class="custom-control-label">Home</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    @Html.CheckBoxFor(model => model.IsSale, new { @class = "custom-control-input", @id = "IsHotCheckbox2" })
+                    <label for="IsHotCheckbox2" class="custom-control-label">Sale</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(document).ready(function () {
+            CKEDITOR.replace('txtMoTaChiTiet', {
+                customConfig: '/assets/ckeditor/config.js',
+                extraAllowedContent: 'span',
+            });
+        });
+
+
+    </script>
+}

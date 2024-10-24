@@ -1,0 +1,31 @@
+﻿
+@model IEnumerable<WEB_Hieu_Quy.Models.SAN_PHAM_CHI_TIET>
+@using WEB_Hieu_Quy.Common
+<div class="daily-hot-deals-content">
+    <div class="daily-hot-deals-content-gird">
+        <ul class="daily-hot-deals-content-row">
+            @foreach (var items in Model)
+            {
+                <li class="daily-hot-deals-content-item">
+                    <img src="@Url.Content(items.HinhAnhChinh)" alt="">
+                    <div class="background"></div>
+                    <div class="content">
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="#" class="list" data-name="p-1">Mua ngay</a>
+                    </div>
+                    <div class="product_detail">
+                        <a href="#"><i class="fa-regular fa-heart"></i></a>
+                        <a href="~/ListSanPham/ChiTietSanPham/@items.MaSP">@items.TenSanPham</a>
+                        <div class="price">
+                            <p class="cost">@Common.FormatNumber(items.GiaGoc) đ</p>
+                            <p class="sale">@Common.FormatNumber(items.GiaBan) đ</p>
+                            <p class="discount">@items.PhanTramSale %</p>
+                        </div>
+                        <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                    </div>
+                </li>
+            }
+        </ul>
+        <script src="/js/slick.js"></script>
+    </div>
+</div>

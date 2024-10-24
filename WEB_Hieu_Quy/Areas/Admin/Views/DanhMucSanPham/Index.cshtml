@@ -1,0 +1,93 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.DANH_MUC_SAN_PHAM>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+
+<table class="table">
+    <div class="row">
+        <!-- Datatables -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary" style="font-size: 25px">Danh sách danh mục sản phẩm</h6>
+                    @Html.ActionLink("Thêm mới", "ThemDanhMuc", null, new { @class = "btn btn-success" })
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush" id="dataTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>STT</th>
+                                <th>Hình Ảnh</th>
+                                <th>Tên Danh Mục</th>
+                                <th>Sửa</th>
+                                <th>Xóa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                var i = 1;
+                                foreach (var item in Model)
+                                {
+
+
+                            <tr id="trow_@item.MaDanhMuc">
+                                <td>@i</td>
+                                <td>
+
+                                    @if (!string.IsNullOrEmpty(item.AnhDanhMuc))
+                                    {
+                                        <img src="@Url.Content(item.AnhDanhMuc)" class="imgproduct" width="80"  />
+                                    }
+                                    else
+                                    {
+                                        <span>Không có hình ảnh</span>
+                                    }
+                                </td>
+                                <td>  @Html.DisplayFor(modelItem => item.TenDangMuc)</td>
+
+                                <td>  @Html.ActionLink("Edit", "SuaDanhMuc", new { id = item.MaDanhMuc })</td>
+                                <td><a href="#" data-id="@item.MaDanhMuc" class="btn btn-sm btn-danger btnDelete">Xóa</a></td>
+                            </tr>
+                                    i++;
+                                }
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4">Không có bản ghi nào!!!</td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có muốn xóa bản ghi này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/admin/danhmucsanpham/xoa',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    </script>
+}

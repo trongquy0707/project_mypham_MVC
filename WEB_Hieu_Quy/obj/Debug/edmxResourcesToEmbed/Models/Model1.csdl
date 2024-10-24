@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Web_CosmeticsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BINH_LUAN">
+    <Key>
+      <PropertyRef Name="MaBL" />
+    </Key>
+    <Property Name="MaBL" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaSP" Type="Int32" />
+    <Property Name="BinhLuan" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TenNguoiBL" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="SAN_PHAM_CHI_TIET" Relationship="Self.FK_BINH_LUAN_SAN_PHAM_CHI_TIET" FromRole="BINH_LUAN" ToRole="SAN_PHAM_CHI_TIET" />
+  </EntityType>
+  <EntityType Name="CHUC_VU">
+    <Key>
+      <PropertyRef Name="MaChucVu" />
+    </Key>
+    <Property Name="MaChucVu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenChucVu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TAI_KHOAN" Relationship="Self.FK_TAI_KHOAN_CHUC_VU" FromRole="CHUC_VU" ToRole="TAI_KHOAN" />
+  </EntityType>
+  <EntityType Name="DANH_MUC_SAN_PHAM">
+    <Key>
+      <PropertyRef Name="MaDanhMuc" />
+    </Key>
+    <Property Name="MaDanhMuc" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenDangMuc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="AnhDanhMuc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="SAN_PHAM_CHI_TIET" Relationship="Self.FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM" FromRole="DANH_MUC_SAN_PHAM" ToRole="SAN_PHAM_CHI_TIET" />
+  </EntityType>
+  <EntityType Name="HINH_ANH">
+    <Key>
+      <PropertyRef Name="MaHinhAnh" />
+    </Key>
+    <Property Name="MaHinhAnh" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaSanPham" Type="Int32" />
+    <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AnhChinh" Type="Boolean" />
+    <NavigationProperty Name="SAN_PHAM_CHI_TIET" Relationship="Self.FK_HINH_ANH_SAN_PHAM_CHI_TIET" FromRole="HINH_ANH" ToRole="SAN_PHAM_CHI_TIET" />
+  </EntityType>
+  <EntityType Name="HOA_DON">
+    <Key>
+      <PropertyRef Name="MaHD" />
+    </Key>
+    <Property Name="MaHD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NgayMua" Type="DateTime" Precision="0" />
+    <Property Name="TongTien" Type="Double" />
+    <Property Name="TenKhachHang" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ThanhPho" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Quan_Huyen" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Xa_Phuong" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Ghi_Chu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Thanh_Toan" Type="Int32" />
+    <Property Name="SoLuong" Type="Int32" />
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="MaVC" Type="Int32" />
+    <NavigationProperty Name="HOA_DON_CHI_TIET" Relationship="Self.FK_HOA_DON_CHI_TIET_HOA_DON" FromRole="HOA_DON" ToRole="HOA_DON_CHI_TIET" />
+    <NavigationProperty Name="VOUCHER" Relationship="Self.FK_HOA_DON_VOUCHER" FromRole="HOA_DON" ToRole="VOUCHER" />
+  </EntityType>
+  <EntityType Name="HOA_DON_CHI_TIET">
+    <Key>
+      <PropertyRef Name="MaHDCT" />
+    </Key>
+    <Property Name="MaHDCT" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaHD" Type="Int32" />
+    <Property Name="MaSP" Type="Int32" />
+    <Property Name="SoLuongMua" Type="Int32" />
+    <Property Name="GiaBan" Type="Double" />
+    <NavigationProperty Name="HOA_DON" Relationship="Self.FK_HOA_DON_CHI_TIET_HOA_DON" FromRole="HOA_DON_CHI_TIET" ToRole="HOA_DON" />
+    <NavigationProperty Name="SAN_PHAM_CHI_TIET" Relationship="Self.FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1" FromRole="HOA_DON_CHI_TIET" ToRole="SAN_PHAM_CHI_TIET" />
+  </EntityType>
+  <EntityType Name="SAN_PHAM_CHI_TIET">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MaDanhMuc" Type="Int32" />
+    <Property Name="HinhAnhChinh" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="GiaGoc" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="MoTaChiTiet" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TrangThai" Type="Int32" />
+    <Property Name="TenSanPham" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsHome" Type="Boolean" Nullable="false" />
+    <Property Name="IsSale" Type="Boolean" Nullable="false" />
+    <Property Name="PhanTramSale" Type="Decimal" Precision="5" Scale="2" />
+    <Property Name="GiaBan" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SoLuong" Type="Int32" />
+    <NavigationProperty Name="BINH_LUAN" Relationship="Self.FK_BINH_LUAN_SAN_PHAM_CHI_TIET" FromRole="SAN_PHAM_CHI_TIET" ToRole="BINH_LUAN" />
+    <NavigationProperty Name="DANH_MUC_SAN_PHAM" Relationship="Self.FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM" FromRole="SAN_PHAM_CHI_TIET" ToRole="DANH_MUC_SAN_PHAM" />
+    <NavigationProperty Name="HINH_ANH" Relationship="Self.FK_HINH_ANH_SAN_PHAM_CHI_TIET" FromRole="SAN_PHAM_CHI_TIET" ToRole="HINH_ANH" />
+    <NavigationProperty Name="HOA_DON_CHI_TIET" Relationship="Self.FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1" FromRole="SAN_PHAM_CHI_TIET" ToRole="HOA_DON_CHI_TIET" />
+  </EntityType>
+  <EntityType Name="TAI_KHOAN">
+    <Key>
+      <PropertyRef Name="MaUser" />
+    </Key>
+    <Property Name="SDT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TenDangNhap" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="MatKhau" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MaChucVu" Type="Int32" />
+    <Property Name="MaUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="CHUC_VU" Relationship="Self.FK_TAI_KHOAN_CHUC_VU" FromRole="TAI_KHOAN" ToRole="CHUC_VU" />
+  </EntityType>
+  <EntityType Name="VOUCHER">
+    <Key>
+      <PropertyRef Name="MaVC" />
+    </Key>
+    <Property Name="MaVC" Type="Int32" Nullable="false" />
+    <Property Name="ToiThieu" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GiamGia" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="TenVoucher" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="HOA_DON" Relationship="Self.FK_HOA_DON_VOUCHER" FromRole="VOUCHER" ToRole="HOA_DON" />
+  </EntityType>
+  <Association Name="FK_BINH_LUAN_SAN_PHAM_CHI_TIET">
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="0..1" />
+    <End Role="BINH_LUAN" Type="Self.BINH_LUAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="BINH_LUAN">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TAI_KHOAN_CHUC_VU">
+    <End Role="CHUC_VU" Type="Self.CHUC_VU" Multiplicity="0..1" />
+    <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHUC_VU">
+        <PropertyRef Name="MaChucVu" />
+      </Principal>
+      <Dependent Role="TAI_KHOAN">
+        <PropertyRef Name="MaChucVu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM">
+    <End Role="DANH_MUC_SAN_PHAM" Type="Self.DANH_MUC_SAN_PHAM" Multiplicity="0..1" />
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANH_MUC_SAN_PHAM">
+        <PropertyRef Name="MaDanhMuc" />
+      </Principal>
+      <Dependent Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaDanhMuc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HINH_ANH_SAN_PHAM_CHI_TIET">
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="0..1" />
+    <End Role="HINH_ANH" Type="Self.HINH_ANH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="HINH_ANH">
+        <PropertyRef Name="MaSanPham" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOA_DON_CHI_TIET_HOA_DON">
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="0..1" />
+    <End Role="HOA_DON_CHI_TIET" Type="Self.HOA_DON_CHI_TIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOA_DON">
+        <PropertyRef Name="MaHD" />
+      </Principal>
+      <Dependent Role="HOA_DON_CHI_TIET">
+        <PropertyRef Name="MaHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOA_DON_VOUCHER">
+    <End Role="VOUCHER" Type="Self.VOUCHER" Multiplicity="0..1" />
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VOUCHER">
+        <PropertyRef Name="MaVC" />
+      </Principal>
+      <Dependent Role="HOA_DON">
+        <PropertyRef Name="MaVC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1">
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="0..1" />
+    <End Role="HOA_DON_CHI_TIET" Type="Self.HOA_DON_CHI_TIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="HOA_DON_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Web_CosmeticsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BINH_LUAN" EntityType="Self.BINH_LUAN" />
+    <EntitySet Name="CHUC_VU" EntityType="Self.CHUC_VU" />
+    <EntitySet Name="DANH_MUC_SAN_PHAM" EntityType="Self.DANH_MUC_SAN_PHAM" />
+    <EntitySet Name="HINH_ANH" EntityType="Self.HINH_ANH" />
+    <EntitySet Name="HOA_DON" EntityType="Self.HOA_DON" />
+    <EntitySet Name="HOA_DON_CHI_TIET" EntityType="Self.HOA_DON_CHI_TIET" />
+    <EntitySet Name="SAN_PHAM_CHI_TIET" EntityType="Self.SAN_PHAM_CHI_TIET" />
+    <EntitySet Name="TAI_KHOAN" EntityType="Self.TAI_KHOAN" />
+    <EntitySet Name="VOUCHERs" EntityType="Self.VOUCHER" />
+    <AssociationSet Name="FK_BINH_LUAN_SAN_PHAM_CHI_TIET" Association="Self.FK_BINH_LUAN_SAN_PHAM_CHI_TIET">
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+      <End Role="BINH_LUAN" EntitySet="BINH_LUAN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TAI_KHOAN_CHUC_VU" Association="Self.FK_TAI_KHOAN_CHUC_VU">
+      <End Role="CHUC_VU" EntitySet="CHUC_VU" />
+      <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM" Association="Self.FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM">
+      <End Role="DANH_MUC_SAN_PHAM" EntitySet="DANH_MUC_SAN_PHAM" />
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HINH_ANH_SAN_PHAM_CHI_TIET" Association="Self.FK_HINH_ANH_SAN_PHAM_CHI_TIET">
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+      <End Role="HINH_ANH" EntitySet="HINH_ANH" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOA_DON_CHI_TIET_HOA_DON" Association="Self.FK_HOA_DON_CHI_TIET_HOA_DON">
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+      <End Role="HOA_DON_CHI_TIET" EntitySet="HOA_DON_CHI_TIET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOA_DON_VOUCHER" Association="Self.FK_HOA_DON_VOUCHER">
+      <End Role="VOUCHER" EntitySet="VOUCHERs" />
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1" Association="Self.FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1">
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+      <End Role="HOA_DON_CHI_TIET" EntitySet="HOA_DON_CHI_TIET" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

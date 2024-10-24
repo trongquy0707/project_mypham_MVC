@@ -1,0 +1,214 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.SAN_PHAM_CHI_TIET>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<table class="table">
+    <div class="row">
+        <!-- Datatables -->
+        <div class="col-lg-12">
+            <div class="card mb-4">
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                    <h6 class="m-0 font-weight-bold text-primary" style="font-size: 25px">Sản phẩm chi tiết</h6>
+                    @Html.ActionLink("Thêm mới sản phẩm", "Add", null, new { @class = "btn btn-success" })
+                </div>
+                <div class="table-responsive p-3">
+                    <table class="table align-items-center table-flush" id="dataTable">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Hình Ảnh</th>
+                                <th>Tên Sản Phẩm</th>
+                                <th>Giá gốc</th>
+                                <th>Giá Sale</th>
+                                <th>Phần trăm Sale</th>
+                                <th>Mô tả chi tiết</th>
+                                <th>Tên danh mục</th>
+                                <th>Hiển thị</th>
+                                <th>Sale</th>
+                                <th>Trạng Thái</th>
+                                <th>Chỉnh sửa</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    var strCheckHome = item.IsHome ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+                                    var strCheckSale = item.IsSale ? "<i class='fa fa-check text-success'></i>" : "<i class='fas fa-times text-danger'></i>";
+
+                                    var i = 1;
+                                    <tr>
+                                        <td>
+
+                                            @if (!string.IsNullOrEmpty(item.HinhAnhChinh))
+                                            {
+                                                <img src="@Url.Content(item.HinhAnhChinh)" class="imgproduct" data-id="@item.MaSP" width="100" />
+                                            }
+                                            else
+                                            {
+                                                <span >Không có hình ảnh</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TenSanPham)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GiaGoc)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.GiaBan)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhanTramSale)
+                                        </td>
+                                        <td>
+                                            @if (!string.IsNullOrEmpty(item.MoTaChiTiet))
+                                            {
+                                                <span>@Html.Raw(item.MoTaChiTiet.Length > 20 ? item.MoTaChiTiet.Substring(0, 20) + "..." : item.MoTaChiTiet)</span>
+                                            }
+                                            else
+                                            {
+                                                <span>Không có mô tả chi tiết</span>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.DANH_MUC_SAN_PHAM.TenDangMuc)
+                                        </td>
+                                        <td class="text-center">
+                                            <a href='#' data-id="@item.MaSP" class="btnHome">@Html.Raw(strCheckHome)</a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href='#' data-id="@item.MaSP" class="btnSale">@Html.Raw(strCheckSale)</a>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.TrangThai)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Edit", "SuaSanPham", new { id = item.MaSP }) |
+
+                                            @Html.ActionLink("Details", "Details", new { id = item.MaSP }) |
+                                            <a href="#" data-id="@item.MaSP" class=" btnDelete">Xóa</a>
+
+                                        </td>
+                                    </tr>
+                                    i++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4">Không có bản ghi nào!!!</td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</table>
+<div id="dialog">
+    <iframe id="myIframe" style="border: 0; width: 100%; height: 100%;"></iframe>
+</div>
+@section scripts{
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data("id");
+                var conf = confirm('Bạn có muốn xóa bản ghi này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/admin/SanPhamChiTiet/Delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        //hiển thị form upload ảnh
+        $("#dialog").dialog({
+            autoOpen: false,
+            show: "fade",
+            hide: "fade",
+            modal: true,
+            height: '600',
+            width: '700',
+            resizable: true,
+            title: 'Quản lý ảnh sản phẩm',
+            close: function () {
+                window.location.reload();
+            }
+        });
+        $('body').on("click", ".imgproduct", function () {
+            var proid = $(this).attr("data-id");
+            $("#dialog #myIframe").attr("src", "/admin/AnhSanPham/Index?id=" + proid);
+            $('#dialog').dialog('open');
+            return false;
+        });
+
+        $('body').on('click', '.btnHome', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var id = btn.data("id");
+            $.ajax({
+                url: '/admin/SanPhamChiTiet/IsHome',
+                type: 'POST',
+                data: { id: id },
+                success: function (rs) {
+                    if (rs.success) {
+                        if (rs.ishome) {
+                            btn.html("<i class='fa fa-check text-success'></i>");
+                        } else {
+                            btn.html("<i class='fas fa-times text-danger'></i>");
+                           
+                        }
+                        
+                    }
+
+                }
+            });
+        });
+
+        $('body').on('click', '.btnSale', function (e) {
+            e.preventDefault();
+            var btn = $(this);
+            var id = btn.data("id");
+            $.ajax({
+                url: '/admin/SanPhamChiTiet/IsSale',
+                type: 'POST',
+                data: { id: id },
+                success: function (rs) {
+                    if (rs.success) {
+                        if (rs.issale) {
+                            btn.html("<i class='fa fa-check text-success'></i>");
+                            //$(this).find("i").removeClass("fas fa-times text-danger")
+                            //$(this).find("i").addClass("fa fa-check text-success");
+                            /*  location.reload();*/
+                        } else {
+                            btn.html("<i class='fas fa-times text-danger'></i>");
+
+                        }
+
+                    }
+
+                }
+            });
+        });
+    </script>
+    }
+

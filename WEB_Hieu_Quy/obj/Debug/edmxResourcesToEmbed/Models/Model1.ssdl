@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Web_CosmeticsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BINH_LUAN">
+    <Key>
+      <PropertyRef Name="MaBL" />
+    </Key>
+    <Property Name="MaBL" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSP" Type="int" />
+    <Property Name="BinhLuan" Type="nvarchar(max)" />
+    <Property Name="TenNguoiBL" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="SDT" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="CHUC_VU">
+    <Key>
+      <PropertyRef Name="MaChucVu" />
+    </Key>
+    <Property Name="MaChucVu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenChucVu" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DANH_MUC_SAN_PHAM">
+    <Key>
+      <PropertyRef Name="MaDanhMuc" />
+    </Key>
+    <Property Name="MaDanhMuc" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDangMuc" Type="nvarchar" MaxLength="50" />
+    <Property Name="AnhDanhMuc" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="HINH_ANH">
+    <Key>
+      <PropertyRef Name="MaHinhAnh" />
+    </Key>
+    <Property Name="MaHinhAnh" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaSanPham" Type="int" />
+    <Property Name="HinhAnh" Type="varchar(max)" />
+    <Property Name="AnhChinh" Type="bit" />
+  </EntityType>
+  <EntityType Name="HOA_DON">
+    <Key>
+      <PropertyRef Name="MaHD" />
+    </Key>
+    <Property Name="MaHD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NgayMua" Type="date" />
+    <Property Name="TongTien" Type="float" />
+    <Property Name="TenKhachHang" Type="nvarchar(max)" />
+    <Property Name="Code" Type="nvarchar(max)" />
+    <Property Name="ThanhPho" Type="nvarchar(max)" />
+    <Property Name="Quan_Huyen" Type="nvarchar(max)" />
+    <Property Name="Xa_Phuong" Type="nvarchar(max)" />
+    <Property Name="Ghi_Chu" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="Thanh_Toan" Type="int" />
+    <Property Name="SoLuong" Type="int" />
+    <Property Name="SDT" Type="varchar" MaxLength="50" />
+    <Property Name="Status" Type="int" />
+    <Property Name="MaVC" Type="int" />
+  </EntityType>
+  <EntityType Name="HOA_DON_CHI_TIET">
+    <Key>
+      <PropertyRef Name="MaHDCT" />
+    </Key>
+    <Property Name="MaHDCT" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaHD" Type="int" />
+    <Property Name="MaSP" Type="int" />
+    <Property Name="SoLuongMua" Type="int" />
+    <Property Name="GiaBan" Type="float" />
+  </EntityType>
+  <EntityType Name="SAN_PHAM_CHI_TIET">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaDanhMuc" Type="int" />
+    <Property Name="HinhAnhChinh" Type="varchar(max)" />
+    <Property Name="GiaGoc" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="MoTaChiTiet" Type="nvarchar(max)" />
+    <Property Name="TrangThai" Type="int" />
+    <Property Name="TenSanPham" Type="nvarchar(max)" />
+    <Property Name="IsHome" Type="bit" Nullable="false" />
+    <Property Name="IsSale" Type="bit" Nullable="false" />
+    <Property Name="PhanTramSale" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="GiaBan" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="SoLuong" Type="int" />
+  </EntityType>
+  <EntityType Name="TAI_KHOAN">
+    <Key>
+      <PropertyRef Name="MaUser" />
+    </Key>
+    <Property Name="SDT" Type="nvarchar" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar(max)" />
+    <Property Name="TenDangNhap" Type="nvarchar" MaxLength="50" />
+    <Property Name="MatKhau" Type="nvarchar(max)" />
+    <Property Name="MaChucVu" Type="int" />
+    <Property Name="MaUser" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VOUCHER">
+    <Key>
+      <PropertyRef Name="MaVC" />
+    </Key>
+    <Property Name="MaVC" Type="int" Nullable="false" />
+    <Property Name="ToiThieu" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="GiamGia" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="TenVoucher" Type="nvarchar(max)" />
+  </EntityType>
+  <Association Name="FK_BINH_LUAN_SAN_PHAM_CHI_TIET">
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="0..1" />
+    <End Role="BINH_LUAN" Type="Self.BINH_LUAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="BINH_LUAN">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HINH_ANH_SAN_PHAM_CHI_TIET">
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="0..1" />
+    <End Role="HINH_ANH" Type="Self.HINH_ANH" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="HINH_ANH">
+        <PropertyRef Name="MaSanPham" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOA_DON_CHI_TIET_HOA_DON">
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="0..1" />
+    <End Role="HOA_DON_CHI_TIET" Type="Self.HOA_DON_CHI_TIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="HOA_DON">
+        <PropertyRef Name="MaHD" />
+      </Principal>
+      <Dependent Role="HOA_DON_CHI_TIET">
+        <PropertyRef Name="MaHD" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1">
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="0..1" />
+    <End Role="HOA_DON_CHI_TIET" Type="Self.HOA_DON_CHI_TIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Principal>
+      <Dependent Role="HOA_DON_CHI_TIET">
+        <PropertyRef Name="MaSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HOA_DON_VOUCHER">
+    <End Role="VOUCHER" Type="Self.VOUCHER" Multiplicity="0..1" />
+    <End Role="HOA_DON" Type="Self.HOA_DON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VOUCHER">
+        <PropertyRef Name="MaVC" />
+      </Principal>
+      <Dependent Role="HOA_DON">
+        <PropertyRef Name="MaVC" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM">
+    <End Role="DANH_MUC_SAN_PHAM" Type="Self.DANH_MUC_SAN_PHAM" Multiplicity="0..1" />
+    <End Role="SAN_PHAM_CHI_TIET" Type="Self.SAN_PHAM_CHI_TIET" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANH_MUC_SAN_PHAM">
+        <PropertyRef Name="MaDanhMuc" />
+      </Principal>
+      <Dependent Role="SAN_PHAM_CHI_TIET">
+        <PropertyRef Name="MaDanhMuc" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TAI_KHOAN_CHUC_VU">
+    <End Role="CHUC_VU" Type="Self.CHUC_VU" Multiplicity="0..1" />
+    <End Role="TAI_KHOAN" Type="Self.TAI_KHOAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CHUC_VU">
+        <PropertyRef Name="MaChucVu" />
+      </Principal>
+      <Dependent Role="TAI_KHOAN">
+        <PropertyRef Name="MaChucVu" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Web_CosmeticsModelStoreContainer">
+    <EntitySet Name="BINH_LUAN" EntityType="Self.BINH_LUAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CHUC_VU" EntityType="Self.CHUC_VU" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DANH_MUC_SAN_PHAM" EntityType="Self.DANH_MUC_SAN_PHAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HINH_ANH" EntityType="Self.HINH_ANH" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOA_DON" EntityType="Self.HOA_DON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HOA_DON_CHI_TIET" EntityType="Self.HOA_DON_CHI_TIET" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SAN_PHAM_CHI_TIET" EntityType="Self.SAN_PHAM_CHI_TIET" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TAI_KHOAN" EntityType="Self.TAI_KHOAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VOUCHER" EntityType="Self.VOUCHER" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_BINH_LUAN_SAN_PHAM_CHI_TIET" Association="Self.FK_BINH_LUAN_SAN_PHAM_CHI_TIET">
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+      <End Role="BINH_LUAN" EntitySet="BINH_LUAN" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HINH_ANH_SAN_PHAM_CHI_TIET" Association="Self.FK_HINH_ANH_SAN_PHAM_CHI_TIET">
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+      <End Role="HINH_ANH" EntitySet="HINH_ANH" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOA_DON_CHI_TIET_HOA_DON" Association="Self.FK_HOA_DON_CHI_TIET_HOA_DON">
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+      <End Role="HOA_DON_CHI_TIET" EntitySet="HOA_DON_CHI_TIET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1" Association="Self.FK_HOA_DON_CHI_TIET_SAN_PHAM_CHI_TIET1">
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+      <End Role="HOA_DON_CHI_TIET" EntitySet="HOA_DON_CHI_TIET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HOA_DON_VOUCHER" Association="Self.FK_HOA_DON_VOUCHER">
+      <End Role="VOUCHER" EntitySet="VOUCHER" />
+      <End Role="HOA_DON" EntitySet="HOA_DON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM" Association="Self.FK_SAN_PHAM_CHI_TIET_DANH_MUC_SAN_PHAM">
+      <End Role="DANH_MUC_SAN_PHAM" EntitySet="DANH_MUC_SAN_PHAM" />
+      <End Role="SAN_PHAM_CHI_TIET" EntitySet="SAN_PHAM_CHI_TIET" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TAI_KHOAN_CHUC_VU" Association="Self.FK_TAI_KHOAN_CHUC_VU">
+      <End Role="CHUC_VU" EntitySet="CHUC_VU" />
+      <End Role="TAI_KHOAN" EntitySet="TAI_KHOAN" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

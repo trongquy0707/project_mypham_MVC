@@ -1,0 +1,254 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Roboto", sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+li {
+    list-style: none;
+}
+
+.top-hea {
+    position: relative;
+    padding: 10px 0;
+    background: linear-gradient(to right, #b8bcff, #fcc9f9);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    color: #fbf8ef;
+}
+
+.account_header {
+    display: flex;
+    color: #fbf8ef;
+}
+
+    .account_header li {
+        padding: 0 2px;
+    }
+
+    .account_header > li > a {
+        color: white;
+    }
+
+        .account_header > li > a:hover {
+            color: #e83e8c;
+        }
+
+.top-header {
+    margin: 10px 0;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.search input[type="text"] {
+    padding: 10px;
+    width: 600px;
+    border-radius: 0.25rem;
+    border: 0px solid #ccc;
+    margin-right: 10px;
+}
+
+.search i {
+    padding: 10px;
+    background: linear-gradient(to right, #b8bcff, #fcc9f9);
+    border-radius: 0px 50% 50% 0px;
+}
+
+.box-right {
+    display: flex;
+}
+
+    .box-right > li > a i {
+        font-size: 30px;
+        color: #e83e8c;
+        margin: 0 5px 0 15px;
+    }
+
+.box-right-item {
+    display: flex;
+}
+
+header {
+    width: 50%;
+    margin: 11px auto;
+}
+
+#active {
+    color: #a7abf7;
+    border-bottom: 1px solid #a7abf7;
+}
+
+header .container .row > li > a {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 10px;
+    color: #2e2e2e;
+    transition: 0.15s ease-in;
+    position: relative;
+}
+
+    header .container .row > li > a::before {
+        content: "";
+        height: 1px;
+        width: 0;
+        background: #a7abf7;
+        position: absolute;
+        bottom: 0;
+        transition: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+header .container .row > li:hover > a::before {
+    width: 100%;
+}
+
+header .container .row > li > a:hover {
+    color: #a7abf7;
+}
+
+header .container .row .sub-menu {
+    position: absolute;
+    width: 1000px;
+    height: auto;
+    left: 320px;
+    top: 146px;
+    padding: 10px 0;
+    box-shadow: 1px 1px 3px #545454;
+    display: none;
+    transition: 0.3s ease-in;
+    background-color: #fbf8ef;
+    z-index: 2;
+}
+
+header .container .row > li:hover .sub-menu {
+    display: block;
+}
+
+.product {
+    display: flex;
+}
+
+.product_list {
+    flex: 1;
+    margin: 0 10px;
+}
+
+    .product_list > .active {
+        line-height: 2;
+        border-bottom: 1px solid #878787;
+        font-weight: 500;
+        font-size: 15px;
+        margin-bottom: 5px;
+    }
+
+.active a {
+    color: #393939;
+}
+
+.product_list > li > a {
+    line-height: 1.7;
+    color: #878787;
+}
+
+    .product_list > li > a:hover, .active a {
+        color: #e83e8c;
+    }
+
+main {
+    margin: 50px auto;
+    width: 1100px;
+    line-height: 2;
+    font-size: 16px;
+}
+
+    main .container img {
+        width: 100%;
+    }
+
+
+
+
+
+
+
+
+
+
+footer {
+    margin-top: 60px;
+    background: linear-gradient(to right, #b8bcff, #fcc9f9);
+}
+
+.footer {
+    width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 20px;
+}
+
+.footer-row {
+    margin: 30px 0;
+    line-height: 2.5;
+}
+
+.footer-active {
+    color: #d8346b;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+    .footer-active:hover {
+        color: #8d93ff;
+    }
+
+.footer-row > a {
+    padding: 10px;
+    font-size: 18px;
+    background-color: #d8346b;
+    color: #fff;
+    border-radius: 20px;
+    transition: all 0.3s ease-in-out;
+}
+
+    .footer-row > a:hover {
+        background-color: #8d93ff;
+    }
+
+.footer-row li a:hover {
+    color: #d8346b;
+}
+
+.footer-row li a i {
+    padding-right: 10px;
+}
+
+.internet i {
+    font-size: 45px;
+    margin-right: 10px;
+    transition: all 0.2s ease-in-out;
+}
+
+    .internet i:hover {
+        opacity: 0.8;
+    }

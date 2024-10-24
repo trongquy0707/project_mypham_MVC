@@ -1,0 +1,35 @@
+﻿@model WEB_Hieu_Quy.Models.TAI_KHOAN
+@{
+    ViewBag.Title = "ThongTinTK";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+}
+<link href="~/assets/CauHieu/css/account_information.css" rel="stylesheet" />
+
+<main>
+    <div class="container">
+
+        <div class="container-left">
+            <b>Xin chào, <div style="color: #e83e8c;display: inline-block;">Dinh Hieu !</div></b>
+            <h2>TRANG TÀI KHOẢN</h2>
+            <ul class="menu-left">
+                <li><a href="~/Accountt/ThongTinTK/@Model.MaUser">Thông tin tài khoản</a></li>
+                <li><a href="/html/orders.html">Sản phầm đã mua</a></li>
+                <li><a href="~/Accountt/ThongTinDangNhap/@Model.MaUser">Thông tin đăng nhập</a></li>
+                <li><a href="#">Địa chỉ</a></li>
+                <li><a href="~/Accountt/logout">Đăng xuất</a></li>
+            </ul>
+        </div>
+       
+            <div class="container-right">
+                <h1>THÔNG TIN TÀI KHOẢN</h1>
+                <p><b>Họ và tên: </b>@Model.TenDangNhap</p>
+                <p><b>Email: </b>@Model.Email</p>
+                <p><b>Số điện thoại: </b>@Model.SDT</p>
+                @*<div class="btn_oder">
+                    <a href="~/Accountt/SuaThongTin"><button class="button" type="submit" name="">Thay đổi thông tin</button></a>
+                </div>*@
+            </div>
+</main>
+
+
+

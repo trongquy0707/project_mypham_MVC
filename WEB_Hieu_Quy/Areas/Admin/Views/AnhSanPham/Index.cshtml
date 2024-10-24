@@ -1,0 +1,180 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.HINH_ANH>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/layout_Anh.cshtml";
+}
+
+@*<h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HinhAnh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SAN_PHAM_CHI_TIET.HinhAnhChinh)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HinhAnh)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SAN_PHAM_CHI_TIET.HinhAnhChinh)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.MaHinhAnh }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.MaHinhAnh }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.MaHinhAnh })
+                </td>
+            </tr>
+        }
+
+    </table>*@
+
+@*@model IEnumerable<WEB_Hieu_Quy.Models.HINH_ANH>
+    @{
+        ViewBag.Title = "IndexAnhSanPham";
+        Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+    }*@
+
+<h2>Quản lý ảnh sản phẩm</h2>
+
+<style>
+    .glImage {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+    }
+
+        .glImage li {
+            /*flex-direction:*/
+            display: inline-block;
+            position: relative;
+        }
+
+    .box-btn {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+    }
+</style>
+<section class="content">
+   
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header"> 
+            <div class="card-tools">
+                <button type="button"  class="btn btn-danger btnDeleteAll" title="Collapse">
+                    Xóa hết
+                </button>
+
+                <input type="button" value="Tải ảnh" class="btn btn-success" onclick="BrowseServer('txtImage');" />
+            </div>
+        </div>
+        <div class="card-body">
+            <ul class="glImage">
+                @if (Model != null)
+                {
+
+                    
+                    foreach (var item in Model)
+                    {
+                        <li id="trow_@item.MaHinhAnh">
+                            <img src="@item.HinhAnh" width="200" style="margin : 10px" />
+                            <div class="box-btn">
+                                <a href="#" data-id="@item.MaHinhAnh" class="btn btn-sm btn-danger btnDelete"><i class="fa fa-trash"></i></a>
+
+
+
+
+                            </div>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <!-- /.card-body -->
+        <div class="card-footer">
+
+        </div>
+       
+    </div>
+    
+
+</section>
+@section scripts{
+
+    <script>
+
+    function BrowseServer(field) {
+        var finder = new CKFinder();
+        finder.selectActionFunction = function (fileUrl) {
+            debugger;
+            AddImage(@ViewBag.MaSP, fileUrl);
+        };
+        finder.popup();
+    }
+    function AddImage(id, url) {
+        debugger;
+        $.ajax({
+            url: '/Admin/AnhSanPham/ThemAnh',
+            type: 'POST',
+            data: {MaSP: id, url: url },
+            success: function (rs) {
+                if (rs.Success) {
+                    window.location.reload();
+                }
+            }
+        });
+    }
+    $(document).ready(function () {
+        $('body').on('click', '.btnDeleteAll', function () {
+            var id = $(this).data('id');
+            var conf = confirm('ban có muốn xóa ảnh này không?');
+            if (conf === true) {
+                $.ajax({
+                    url: '/Admin/AnhSanPham/DeleteAll',
+                    type: 'POST',
+                    data: { id: id },
+                    success: function (rs) {
+                        if (rs.successs) {
+                            $('.glImage').empty();
+                        }
+                    }
+                });
+            }
+        });
+    });
+
+        $(document).ready(function () {
+            $('body').on('click', '.btnDelete', function () {
+                var id = $(this).data('id');
+                var conf = confirm('ban có muốn xóa ảnh này không?');
+                if (conf === true) {
+                    $.ajax({
+                        url: '/Admin/AnhSanPham/Delete',
+                        type: 'POST',
+                        data: { id: id },
+                        success: function (rs) {
+                            if (rs.success) {
+                                $('#trow_' + id).remove();
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+}

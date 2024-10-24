@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "VnpayReturn";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+}
+<style>
+    .main{
+        margin: 50px auto;
+        width: 1100px;
+        line-height:3;
+        text-align:center;
+        height:200px;
+    }
+</style>
+
+<div class="main">
+
+    <div class="col-md-12 text-center">
+        <h1 class="">Thanh toán</h1>
+        @if (ViewBag.ThanhToanThanhCong != null)
+        {
+            <p>Bạn đã thanh toán thành công với @ViewBag.ThanhToanThanhCong!</p>
+        }
+        <p>@ViewBag.InnerText</p>
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.ShoppingCartItem>
+    @using WEB_Hieu_Quy.Common
+@{
+    decimal tongtien = 0;
+}
+@if (Model != null && Model.Any())
+{
+    
+    <div class="products">
+        @foreach (var item in Model)
+        {
+            tongtien = tongtien + @item.TongGia;
+            <li class="product-item">
+                
+                <img src="@item.AnhSanPham" alt="">
+                <p>@item.TenSanPham</p>
+                <p class="price" style="color: red"> @Common.FormatNumber(item.GiaSanPham, 2) ₫</p>
+            </li>
+        }
+
+
+    </div>
+    @*<div style="display: flex; justify-content: space-between; align-items: center;margin: 10px 5px;    border-bottom: 1px solid #ebe9e9;">
+        <input type="text" placeholder="Nhập mã giảm giá">
+        <button class="btn-sale">Áp dụng</button>
+    </div>*@
+    <div class="total-amount">
+        <li>
+            <p>Tạm tính</p>
+            <p> @Common.FormatNumber(tongtien, 2) Đ</p>
+        </li>
+        <li>
+            <p>Phí vận chuyển</p>
+            <p>40.000₫</p>
+        </li>
+    </div>
+    <div style="display: flex; justify-content: space-between; align-items: center;margin: 10px 5px;">
+        <h2>Tổng cộng</h2>
+        <h2>@Common.FormatNumber((tongtien + 40000),2) ₫</h2>
+    </div>
+}
+

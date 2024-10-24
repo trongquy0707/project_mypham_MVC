@@ -1,0 +1,432 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.SAN_PHAM_CHI_TIET>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/layout_KhachHang.cshtml";
+    WEB_Hieu_Quy.Models.Web_CosmeticsEntities db = new WEB_Hieu_Quy.Models.Web_CosmeticsEntities();
+
+}
+@using WEB_Hieu_Quy.Common
+<main>
+    <div class="banner">
+        <a href="#"><img src="~/assets/CauHieu/images/slider_1.jpg" width="100%"></a>
+    </div>
+    <div class="categories-featured">
+        <div class="categories-featured-title">
+            <a href="#"><h2>DANH MỤC HOT</h2></a>
+            <img src="~/assets/CauHieu/images/icon_title.jpg" width="10%" alt="">
+
+        </div>
+        <div class="categories-featured-wrapper">
+            @Html.Action("Index", "ListDanhMuc")
+        </div>
+    </div>
+    @*@Html.Action("FlashSale","ListSanPham")*@
+    @*Flash Sale*@
+    <div class="daily-hot-deals">
+        <div class="daily-hot-deals-title">
+            <h2 style="color: #fbd348; font-weight: bold; width: 17%; font-size: 25px;">Flash Sale</h2>
+            <img src="~/assets/CauHieu/images/flash.jpg" width="30px">
+            <marquee>
+                <p style="color: whitesmoke; width: 50%; line-height: 2; font-weight: 500;">Giảm ngay 20% tổng giá trị đơn hàng cùng với 120k được áp dụng cho các đơn hàng trên 500k. </p>
+            </marquee>
+            <!--<div style="display: flex; text-align: center; width: 20%;">-->
+                @*<div class="item">
+                    <p id="days">Days</p>
+                </div>*@
+                @*<span>:</span>*@
+                @*<div class="item">
+                    <p id="hours">Hours</p>
+                </div>
+                <span>:</span>
+                <div class="item">
+                    <p id="minutes">Minutes</p>
+                </div>
+                <span>:</span>
+                <div class="item">
+                    <p id="seconds">Seconds</p>
+                </div>*@
+            <!--</div>-->
+            <script src="/js/sale.js"></script>
+        </div>
+
+        @Html.Action("FlashSale", "ListSanPham")
+    </div>
+    @*Flash Sale*@
+    <div class="product-popular">
+        <div class="product-popular-title">
+            <h2>CHĂM SÓC DA</h2>
+            <a href="#">Xem tất cả</a>
+        </div>
+
+        <div class="daily-hot-deals-content-gird">
+            <ul class="daily-hot-deals-content-row">
+                @foreach (var items in Model)
+                {
+                    <li class="daily-hot-deals-content-item">
+                        <img src="@Url.Content(items.HinhAnhChinh)" alt="">
+                        <div class="background"></div>
+                        <div class="content">
+                            <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                            <a href="#" class="list" data-name="p-6">Mua ngay</a>
+                        </div>
+                        <div class="product_detail">
+                            <a href="#"><i class="fa-regular fa-heart"></i></a>
+                            <a href="~/ListSanPham/ChiTietSanPham/@items.MaSP">@items.TenSanPham</a>
+                            <div class="price">
+                                <p class="cost">@Common.FormatNumber(items.GiaBan) đ</p>
+                                <p class="sale">@Common.FormatNumber(items.GiaGoc) đ</p>
+                                <p class="discount">@items.PhanTramSale %</p>
+                            </div>
+                            <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                        </div>
+                    </li>
+                }
+
+
+            </ul>
+            <div class="products-preview">
+                <div class="preview" data-target="p-6">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd1.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview" data-target="p-7">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd2.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <script src="/js/buy.js"></script>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview" data-target="p-8">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd3.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <script src="/js/buy.js"></script>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview" data-target="p-9">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd4.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <script src="/js/buy.js"></script>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <script src="/js/card.js"></script>
+        </div>
+        <div class="product-popular-images">
+            <li><a href="#"><img src="~/assets/CauHieu/images/prd5.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/prd6.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/prd7.jpg" alt=""></a></li>
+        </div>
+        <ul class="product-popular-links">
+            <li><a href="#">Tẩy trang</a></li>
+            <li><a href="#">Kem dưỡng da</a></li>
+            <li><a href="#">Sữa rửa mặt</a></li>
+            <li><a href="#">Toner nước cân bằng</a></li>
+            <li><a href="#">Treatment đặc trị</a></li>
+            <li><a href="#">Serum trị mụn</a></li>
+        </ul>
+    </div>
+    <div class="product-popular">
+        <div class="product-popular-title">
+            <h2>CHĂM SÓC CƠ THỂ</h2>
+            <a href="#">Xem tất cả</a>
+        </div>
+        <div class="daily-hot-deals-content-gird">
+            <ul class="daily-hot-deals-content-row">
+                <li class="daily-hot-deals-content-item" data-name="a-5">
+                    <img src="~/assets/CauHieu/images/prd8.jpg" alt="">
+                    <div class="background"></div>
+                    <div class="content">
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="#" class="list" data-name="p-1">Mua ngay</a>
+                    </div>
+                    <div class="product_detail">
+                        <a href="#"><i class="fa-regular fa-heart"></i></a>
+                        <a href="product_detail.html">Nước cân bằng ngừa mụn La Roche-Posay Effaclar Astringent Toner</a>
+                        <div class="price">
+                            <p class="cost">305.000đ</p>
+                            <p class="sale">300.000đ</p>
+                            <p class="discount">-20%</p>
+                        </div>
+                        <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                    </div>
+                </li>
+                <li class="daily-hot-deals-content-item" data-name="a-6">
+                    <img src="~/assets/CauHieu/images/prd9.jpg" alt="">
+                    <div class="background"></div>
+                    <div class="content">
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="#" class="list" data-name="p-1">Mua ngay</a>
+                    </div>
+                    <div class="product_detail">
+                        <a href="#"><i class="fa-regular fa-heart"></i></a>
+                        <a href="product_detail.html">Nước cân bằng ngừa mụn La Roche-Posay Effaclar Astringent Toner</a>
+                        <div class="price">
+                            <p class="cost">305.000đ</p>
+                            <p class="sale">300.000đ</p>
+                            <p class="discount">-10%</p>
+                        </div>
+                        <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                    </div>
+                </li>
+                <li class="daily-hot-deals-content-item" data-name="a-7">
+                    <img src="~/assets/CauHieu/images/prd10.jpg" alt="">
+                    <div class="background"></div>
+                    <div class="content">
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="#" class="list" data-name="p-1">Mua ngay</a>
+                    </div>
+                    <div class="product_detail">
+                        <a href="#"><i class="fa-regular fa-heart"></i></a>
+                        <a href="product_detail.html">Nước cân bằng ngừa mụn La Roche-Posay Effaclar Astringent Toner</a>
+                        <div class="price">
+                            <p class="cost">305.000đ</p>
+                            <p class="sale">300.000đ</p>
+                            <p class="discount">-10%</p>
+                        </div>
+                        <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                    </div>
+                </li>
+                <li class="daily-hot-deals-content-item" data-name="a-8">
+                    <img src="~/assets/CauHieu/images/prd11.jpg" alt="">
+                    <div class="background"></div>
+                    <div class="content">
+                        <a href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <a href="#" class="list" data-name="p-1">Mua ngay</a>
+                    </div>
+                    <div class="product_detail">
+                        <a href="#"><i class="fa-regular fa-heart"></i></a>
+                        <a href="product_detail.html">Nước cân bằng ngừa mụn La Roche-Posay Effaclar Astringent Toner</a>
+                        <div class="price">
+                            <p class="cost">305.000đ</p>
+                            <p class="sale">300.000đ</p>
+                            <p class="discount">-10%</p>
+                        </div>
+                        <h5>Có 2 lựa chọn quà tặng khi mua sp</h5>
+                    </div>
+                </li>
+            </ul>
+            <div class="products-preview">
+                <div class="preview" data-target="a-5">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd8.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview" data-target="a-6">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd9.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <script src="/js/buy.js"></script>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview" data-target="a-7">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd10.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <script src="/js/buy.js"></script>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="preview" data-target="a-8">
+                    <div style="display: flex;">
+                        <i class="fas fa-times"></i>
+                        <img src="~/assets/CauHieu/images/prd11.jpg" alt="">
+                        <div class="product-preview-detail">
+                            <h3>Tinh chất sáng da Serum Vichy Liftactiv Specialist</h3>
+                            <div class="price">$2.00</div>
+                            <p>Thông tin sản phẩm đang cập nhật</p>
+                            <div class="buy">
+                                <div class="button">
+                                    <button class="prev">-</button>
+                                    <label class="quantity">1</label>
+                                    <button class="next">+</button>
+                                </div>
+                                <script src="/js/buy.js"></script>
+                                <div class="buttons">
+                                    <a href="#" class="cart">Thêm vào giỏ hàng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <script src="/js/card.js"></script>
+        </div>
+        <div class="product-popular-images">
+            <li><a href="#"><img src="~/assets/CauHieu/images/prd12.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/prd13.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/prd14.jpg" alt=""></a></li>
+        </div>
+        <ul class="product-popular-links">
+            <li><a href="#">Sữa tắm</a></li>
+            <li><a href="#">Sữa dưỡng thể</a></li>
+            <li><a href="#">Tẩy tế bào chết</a></li>
+            <li><a href="#">Kem tẩy lông</a></li>
+            <li><a href="#">Xịt khử mùi</a></li>
+        </ul>
+    </div>
+    <div class="trademark">
+        <div class="trademark-title">
+            <h2>THƯƠNG HIỆU NỔI BẬT</h2>
+            <img src="~/assets/CauHieu/images/icon_title.jpg" alt="">
+            <p>Tự hào là Đại lý phân phối chính thức của hơn <span style="color: #d8346b; font-weight: bold;">100 thương hiệu</span> mỹ phẩm hàng đầu</p>
+        </div>
+        <div class="trademark-images">
+            <li><a href="#"><img src="~/assets/CauHieu/images/company1.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/company2.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/company3.jpg" alt=""></a></li>
+            <li><a href="#"><img src="~/assets/CauHieu/images/company4.jpg" alt=""></a></li>
+        </div>
+    </div>
+    <div class="news">
+        <div class="news-title">
+            <h2>TIN NỔI BẬT</h2>
+            <img src="~/assets/CauHieu/images/icon_title.jpg" alt="">
+        </div>
+        <div class="news-links">
+            <ul>
+                <li>
+                    <a href="#"><img src="~/assets/CauHieu/images/news1.jpg" alt=""></a>
+                    <a href="#" class="news-links-title">Da dầu mụn và mỹ phẩm dành cho da dầu và mụn</a>
+                    <p>1. DA CỦA CHÚNG TA CÓ CẤU TẠO NHƯ THẾ NÀO NHỈ ? Da gồm 3 lớp...</p>
+                    <a href="#" class="links">Đọc tiếp</a>
+                </li>
+                <li>
+                    <a href="#"><img src="~/assets/CauHieu/images/news2.jpg" alt=""></a>
+                    <a href="#" class="news-links-title">Treatment là gì? các hoạt chất điều trị mụn, nám, tàn nhang</a>
+                    <p>1.Treatment là gì ? Các bạn có thể đã google dịch từ ‘treatment’ và ra kết quả...</p>
+                    <a href="#" class="links">Đọc tiếp</a>
+                </li>
+                <li>
+                    <a href="#"><img src="~/assets/CauHieu/images/news3.jpg" alt=""></a>
+                    <a href="#" class="news-links-title">Purging là gì? Nên làm gì khi da bị purging?</a>
+                    <p>Purging là hiện tượng xảy ra bình thường trên da khi làn da co tác động...</p>
+                    <a href="#" class="links">Đọc tiếp</a>
+                </li>
+                <li>
+                    <a href="#"><img src="~/assets/CauHieu/images/news4.jpg" alt=""></a>
+                    <a href="#" class="news-links-title">Toner là gì? Sự khác nhau giữa Lotion và Nước Hoa Hồng?</a>
+                    <p>1. Khái niệm 1.1 Toner Toner hay còn gọi là nước cân bằng da, còn ở Phương Tây...</p>
+                    <a href="#" class="links">Đọc tiếp</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>

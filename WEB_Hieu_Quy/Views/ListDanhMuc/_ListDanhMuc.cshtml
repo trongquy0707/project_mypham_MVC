@@ -1,0 +1,6 @@
+﻿@model IEnumerable<WEB_Hieu_Quy.Models.DANH_MUC_SAN_PHAM>
+@foreach (var items in Model)
+{
+    <li><a href="~/ListSanPham/SanPhamTheoDanhMuc/@items.MaDanhMuc">@items.TenDangMuc</a></li>
+    
+}

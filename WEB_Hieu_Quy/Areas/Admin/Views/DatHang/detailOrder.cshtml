@@ -1,0 +1,80 @@
+﻿@model WEB_Hieu_Quy.Models.HOA_DON
+@{
+    ViewBag.Title = "detailOrder";
+    Layout = "~/Areas/Admin/Views/Shared/layout_admin.cshtml";
+}
+
+<!-- Default box -->
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Chi tiết đơn hàng</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Mã đơn hàng</label>
+                    <p class="form-control">@Model.Code</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Họ tên khách</label>
+                    <p class="form-control">@Model.TenKhachHang</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Tổng tiền</label>
+                    <p class="form-control">@WEB_Hieu_Quy.Common.Common.FormatNumber(Model.TongTien, 0) đ</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <p class="form-control">@Model.SDT</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Ngày tạo</label>
+                    <p class="form-control">@Model.NgayMua</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Email</label>
+                    <p class="form-control">@Model.Email</p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label>Trạng thái</label>
+                    <p class="form-control">@(Model.Thanh_Toan == 1 ? "COD" : "Chuyển Khoản")</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2>Danh sách sản phẩm</h2>
+            </div>
+            <div class="col-12">
+                @Html.Action("ListOrder", "DatHang",new { id = Model.MaHD})
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+
+    </div>
+    <!-- /.card-footer-->
+</div>
+
